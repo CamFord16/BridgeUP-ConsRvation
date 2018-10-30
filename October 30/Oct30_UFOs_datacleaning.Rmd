@@ -1,0 +1,110 @@
+---
+title: "UFOs & Data Cleaning"
+output: html_notebook
+---
+Note about executing commands in your R notebook:
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+Ok. Since it's almost Halloween, let's get ~spooky~ today!
+
+It seems that there have been a lot of UFOs flying around lately. This gets us thinking about UFO sightings through the ages. 
+
+Let's start by importing some data about UFO sightings of the last 100 years!
+
+Set your working directory to the folder where the .csv file is stored.
+
+```{r}
+setwd("your file path here")
+```
+
+Next, import the data using the read.csv() function and assign it to a variable called "UFO_c". Note: You need to use quotation marks inside of the function. 
+```{r}
+# write your code here  
+```
+
+Great. Now, what type of data object is UFO_c? 
+Hint: recall one of the functions we used last week—it's on your Python-R translation sheet!
+
+```{r}
+# write your code here
+```
+
+# Write your answer here #
+
+Let's get to know the data a little bit better!
+
+Let's see what we can find out without using any additional R packages. The summary function summary() gives a basic overview of the data that you have in your data frame — try it out below.
+
+```{r}
+
+```
+
+Based on the summary output, which city seems to have the most occurrences in our dataset? Which country seems to have the most? 
+
+# Write your answers here #
+
+How many rows are in our data frame UFO_c? How many columns are there?
+
+```{r}
+
+```
+
+Another way of finding out the dimensions (number of rows & columns) of an object
+is by using the dim() function. Try it below. 
+
+```{r}
+
+```
+
+Does it give you the same answer? 
+# Your answer here # 
+
+There is one other way that you can see the dimensions of your dataframe. How else can you do it, without using any code? 
+Hint: The answer is found in a different part of your RStudio window
+# Your answer here #
+
+Now let's find out what kind of data we actually have in our dataframe. 
+Pick three column numbers at random and index into UFO_c. 
+
+```{r}
+UFO_c[6]
+```
+
+Look at the outputs from your code. What are the names of the columns that you chose?
+# Your answer here # 
+
+We can also find out the names of all the columns in the data frame at once by using the colnames() function. Try it!
+
+```{r}
+
+```
+
+Now that you know the column names, you can also index any specific column by using its name in quotes like this: 
+
+```{r}
+UFO_c["datetime"]
+```
+
+What if we want to know how many different answers are contained in a specific column? The unique() function returns a list of all the unique values in a given object. try it below:
+
+```{r}
+
+```
+
+We don't want to know every single unique answer. We just want to know how many unique answers there are. We can use two functions together as nested functions to find this out.
+
+Use unique() and dim() together to find out how many unique dates and times have reported UFO sightings!
+
+```{r}
+unique(your input here )
+```
+
+# Your answer here #
+
+Now, choose three other columns and find out how many unique values are included
+
+```{r}
+
+```
+
+# Your answer here # 
