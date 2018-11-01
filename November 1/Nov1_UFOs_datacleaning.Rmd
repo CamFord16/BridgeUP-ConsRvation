@@ -1,0 +1,227 @@
+---
+title: "UFOs & Data Cleaning"
+output: html_notebook
+---
+Note about executing commands in your R notebook:
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+## Part 1 
+Ok. Since it's almost Halloween, let's get ~ spooky ~ today!
+
+It seems that there have been a lot of UFOs flying around lately. This gets us thinking about UFO sightings through the ages. 
+
+Let's start by importing some data about UFO sightings of the last 100 years!
+
+Set your working directory to the folder where the .csv file is stored.
+
+```{r}
+setwd("~/Documents/AMNH/Brown Scholar Interns/Code/)
+```
+
+Next, import the data using the read.csv() function and assign it to a variable called "UFO_c". Note: You need to use quotation marks inside of the function. 
+```{r}
+UFO_c <- read.csv("ufo_complete.csv")
+```
+
+Great. Now, what type of data object is UFO_c? 
+Hint: recall one of the functions we used last week—it's on your Python-R translation sheet!
+
+```{r}
+class(UFO_c)
+```
+
+IT's a data frame!
+
+Let's get to know the data a little bit better!
+
+Now let's see what we can find out without using any additional R packages. The summary function summary() gives a basic overview of the data that you have in your data frame — try it out below.
+
+```{r}
+summary(UFO_c)
+#print(UFO_c)
+```
+
+Based on the summary output, which city seems to have the most occurrences in our dataset? Which country seems to have the most? 
+
+# Write your answers here #
+
+How many rows are in our data frame UFO_c? How many columns are there?
+
+```{r}
+nrow(UFO_c)
+ncol(UFO_c)
+```
+
+Another way of finding out the dimensions (number of rows & columns) of an object
+is by using the dim() function. Try it below. 
+
+```{r}
+dim(UFO_c)
+```
+
+Does it give you the same answer? 
+# Your answer here # 
+
+There is one other way that you can see the dimensions of your dataframe. How else can you do it, without using any code? 
+Hint: The answer is found in a different part of your RStudio window
+# Your answer here #
+
+Now let's find out what kind of data we actually have in our dataframe. 
+Pick three column numbers at random and index into UFO_c. 
+
+```{r}
+UFO_c[6:8]
+UFO_c[,3:5]
+```
+
+Look at the outputs from your code. What are the names of the columns that you chose?
+# Your answer here # 
+
+We can also find out the names of all the columns in the data frame at once by using the colnames() function. Try it!
+
+```{r}
+colnames(UFO_c)
+```
+
+Now that you know the column names, you can also index any specific column by using its name in quotes like this: 
+
+```{r}
+UFO_c["country"]
+```
+
+What if we want to know how many different answers are contained in a specific column? The unique() function returns a list of all the unique values in a given object. try it below:
+
+```{r}
+unique(UFO_c["country"])
+```
+
+We don't want to know every single unique answer. We just want to know how many unique answers there are. We can use two functions together as nested functions to find this out.
+
+Use unique() and dim() together to find out how many unique dates and times have reported UFO sightings!
+
+```{r}
+dim(unique(UFO_c["datetime"]))
+```
+
+# Your answer here #
+
+Now, choose three other columns from UFO_c and find out how many unique values are included
+
+```{r}
+dim(unique(UFO_c["country"]))
+```
+
+# Your answer here # 
+
+
+## Part 2: Data Cleaning 
+The length() function returns the length of a list or vector. You can also use it to set the length of an object. 
+
+Make a new list containing 4 values. Then use length() to check the length. 
+
+```{r}
+ list <- 
+ length()
+```
+
+
+Now, use the length() function to change the length of list to 6 
+
+```{r}
+
+```
+
+Let's find out if there are any NA values in our list. 
+The is.na() function returns a vector the same length as the input. 
+Each value in the vector is either TRUE (if the input value is an NA) or 
+FALSE (if the input value is not an NA) Try it:
+
+```{r}
+
+```
+
+Are there any NA values in your list? Where in the list are they?
+# your answer here
+
+You can also find out where the NA values are by adding the which() function to your code. Which() tells you which indices in your object are True. But your object must be a list of logical (true/false) values. For example, run the following code. Does it work?
+```{r}
+test_list <- c(1,2,3,4)
+which(test_list) 
+```
+
+Now, run this code:
+```{r}
+which(is.na(test_list))
+```
+
+In the above example, the last line of code runs and returns a zero. Why do you think this is?
+# your answer here 
+
+Using this information, write a line of code to find the indices of your list,"list"
+
+```{r}
+
+```
+
+We don't want NA values in our dataset because we can't plot or analyze them. 
+We need to get rid of them! 
+
+The na.omit() function removed NA values from your object. Remove the NAs from "list" and save the output to a variable called "newlist"
+
+```{r}
+
+```
+
+
+Now that we know how to look for and remove NA values, let's go back to our UFO_c dataset and try to clean it up a little bit.  
+
+The following code returns the length of the output from is.na(UFO_c).
+
+```{r}
+length(is.na(UFO_c)) 
+```
+Does the output of this code tell us how many NA values are in our dataset? If not, what does it tell us?
+# your answer here
+
+Challenge: 
+To find out many NA values are in our UFO_c dataset, you will need to use the is.na(), length(), and which() functions. You can do this in one line of code!
+
+```{r}
+
+```
+
+
+## Part 3: A little bit of plotting
+Now that we've gotten rid of the NA values, we can make some plots! The simplest way to plot in R is with the plot() function and then the x and y values you want to use.
+
+For example: 
+```{r}
+x <- c(1,2,3,4)
+y <- c(4,3,2,1)
+plot(x,y)
+```
+
+Using the same format, modify the following code to plot the latitude vs. longitude values from our UFO_c dataframe:
+Hint: 
+
+```{r}
+plot(latitude,longitude)
+```
+
+
+Wow; that's a lot of data! It's hard to tell what we are plotting and what the data distribution is. Let's isolate a small number of values from our data frame and just plot those. 
+
+The head() function shows you the first 10 rows of all the columns in your object. Try it below on UFO_c. 
+
+```{r}
+
+```
+
+Now do the same with the tail() function. What does this function show? 
+
+```{r}
+
+```
+
+try plotting just the first 10 latitude and longitue values. 
+you can index with brackets or use the head() function. 
