@@ -99,7 +99,7 @@ image(DEM)
 You can specify the range of values that you want to plot in the DEM. 
 Finish the zlim argument to plot pixels only between 250 and 300 m in elevation
 ```{r}
-image(DEM, zlim=c(250,300))
+image(DEM, zlim=c( ,))
 ```
 
 You can choose to use colors from the terrain.colors color ramp by using the terrain.colors() function. 
