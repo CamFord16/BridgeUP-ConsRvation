@@ -1,0 +1,226 @@
+---
+title: "Intro to rasters in R"
+output: html_notebook
+---
+
+This code is adapted from a tutorial at: https://www.neonscience.org/raster-data-r 
+https://www.neonscience.org/primer-raster-data-r 
+
+Today we will learn how to load, examine, and plot data from a raster file. 
+
+Install the raster, sp, and rgdal packages using the install.packages() function. 
+(this can take 1 or 3 lines of code depending on how you write it)
+
+```{r}
+
+```
+
+Load the raster, sp, and rgdal packages
+
+```{r}
+
+```
+
+Set your working directory to the folder that contains the folder "NEON-DS-Field..."
+
+```{r}
+setwd("pathToDirHere")
+```
+
+Use the raster() function to load the DEM object into R. Assign it to a varible called 'DEM'. I have already written the file path to the DEM object for you. 
+
+```{r}
+
+ <- ("NEON-DS-Field-Site-Spatial-Data/SJER/DigitalTerrainModel/SJER2013_DTM.tif")
+```
+
+Now you have loaded your first raster object into R! Type the name of the raster object to look at the raster attributes. 
+
+```{r}
+
+```
+
+What attributes do you see in our raster object? List them below. 
+## your answer here 
+
+Did you notice that there is no min/max value? You can use the setMinMax() function to calculate the min/max values of DEM and save it to the DEM variable. Fill in the code below:
+
+```{r}
+DEM <- (object_name)
+```
+
+Now view the raster attributes the same way you did earlier in this notebook. 
+
+```{r}
+
+```
+
+What has changed?
+## your answer here 
+
+
+Before we try to plot our raster, we should check the distribution of pixel values in the raster. Unexpected values or spikes in the image can indicate errors in the data. We can do this by making a histogram with the hist() function. 
+
+```{r}
+hist(DEM)
+```
+Did you get a warning message in your console while running this code? Copy and Paste it below: 
+# Warning message here 
+
+You get this message because the above code only plots 100,000 pixels out of the ~22,000,000 in the raster. 
+
+The code below makes a histogram that uses all ~22,000,000 pixel values in our raster object. Finish the code to add a color and specify that the value of maxpixels is 22000000. 
+```{r}
+
+hist(DEM, main="Distribution of elevation values", 
+     col= "color_name", 
+     maxpixels= )
+
+```
+
+What do the pixel values in our raster object represent? What are the most requent values in our raster object (dataset)? 
+# your answer here 
+
+
+Now let's plot the raster object!
+
+```{r}
+
+plot( , 
+		 main="Digital Elevation Model, SJER") # add title with main
+```
+
+The image() function gives us more control over how our raster object looks. This function works better than plot() for large rasters. 
+
+```{r}
+image(DEM)
+```
+
+You can specify the range of values that you want to plot in the DEM. 
+Finish the zlim argument to plot pixels only between 250 and 300 m in elevation
+```{r}
+image(DEM, zlim=c(250,300))
+```
+
+You can choose to use colors from the terrain.colors color ramp by using the terrain.colors() function. 
+```{r}
+# your comment here
+col <- terrain.colors(5)
+# your comment here
+image(DEM, zlim=c(250,375), main="Digital Elevation Model (DEM)", col=col)
+```
+DO NOW: 
+Try your best to comment the above 2 lines of code. What does each line of code do? Remember that you can type the name of an object in your console to see what information is stored inside! 
+
+What is the range of elevations represented in the above map? 
+# your answer here 
+
+Now, replot the data with a different the number of colors plotted  AND the range of elevations plotted on the map. Write your code below. 
+
+```{r}
+
+
+```
+Do your two elevation color maps look different? If so, how? 
+# your answer here 
+
+
+We can choose to break the pixel values into specific categories by adding breaks. Read the code below and then run it. 
+
+```{r}
+# add a color map with 5 colors
+col=terrain.colors(5)
+
+# add breaks to the colormap (6 breaks = 5 segments)
+brk <- c(250, 300, 350, 400, 450, 500)
+
+# now plot the DEM using the color map with breaks 
+plot(DEM, col=col, breaks=brk, main="DEM with more breaks")
+```
+
+
+Notice that now there is a legend. The following code customizes the legend: 
+
+```{r}
+# First, expand right side of clipping rectangle to make room for the legend
+# turn xpd off
+par(xpd = FALSE, mar=c(5.1, 4.1, 4.1, 4.5))
+
+# Second, plot w/ no legend
+plot(DEM, col=col, breaks=brk, main="DEM with a Custom (but flipped) Legend", legend = FALSE)
+
+# Third, turn xpd back on to force the legend to fit next to the plot.
+par(xpd = TRUE)
+
+# Fourth, add a legend - & make it appear outside of the plot
+legend(par()$usr[2], 4110600,
+        legend = c("lowest", "a bit higher", "middle ground", "higher yet", "highest"), 
+        fill = col)
+```
+
+
+Now our elevation map has a legend, but notice that the order of lowest to highest is opposite of the previous map. The below code fixes that: 
+
+```{r}
+# Expand right side of clipping rect to make room for the legend
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+#DEM with a custom legend
+plot(DEM, col=col, breaks=brk, main="DEM with a Custom Legend",legend = FALSE)
+#turn xpd back on to force the legend to fit next to the plot.
+par(xpd = TRUE)
+#add a legend - but make it appear outside of the plot
+legend( par()$usr[2], 4110600,
+        legend = c("Highest", "Higher yet", "Middle","A bit higher", "Lowest"), 
+        fill = rev(col))
+```
+
+
+One last thing! You can do calculations on a raster. For example, you can multiply all the values in a raster by 2 the same way you would multiply a number by 2. Try it below and assign the new value to an object called DEM2. 
+
+```{r}
+DEM2 <- 
+DEM2
+```
+
+Then, plot the new DEM. 
+```{r}
+plot(DEM2, main="DEM with all values doubled")
+```
+
+
+CHALLENGE: 
+Based on the exercises you have just done, open and plot a Digital Surface Model. 
+
+When you keep the same working directory, the file is located at this path: 
+"NEON-DS-Field-Site-Spatial-Data/SJER/DigitalSurfaceModel/SJER2013_DSM.tif" 
+
+1. Create an object called DSM from the raster located at this path:
+"NEON-DS-Field-Site-Spatial-Data/SJER/DigitalSurfaceModel/SJER2013_DSM.tif"
+
+```{r}
+ 
+
+```
+
+2. convert the raster data from meters to feet using the conversion 1m = 3.3ft 
+
+```{r}
+
+
+```
+
+
+3. Plot the DSM in feet using a custom color map
+
+```{r}
+
+
+```
+
+4. Create breaks to show how the data is distributed. The breaks should represent high elevation, medium elevation, and low elevation 
+
+```{r}
+
+
+```
+
