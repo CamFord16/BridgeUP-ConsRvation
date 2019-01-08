@@ -1,0 +1,8 @@
+Naomi Lauren discussion summary:
+- learned about Wildbook and similar softwares detecting individual animals to count them which we found really cool
+- neural networks similarly detecting items in an image 
+- applying machine learning to track animals, climate change, natural disasters
+- how much of an impact can machine learning have on the protection of the environment? 
+- how advanced is machine learning today?
+- talked about surveillance and collecting info about people based on their activity in relation to privacy
+- talked about how people don't fully understand how machines are detecting objects even though they created the code
